@@ -2,9 +2,7 @@
 /**
  * PDF ToC
  *
- * Adapted from PDF Text plugin
- * 
- * @copyright Copyright 2007-2012 Roy Rosenzweig Center for History and New Media
+ * Adapted from PDF Text plugin by Roy Rosenzweig Center for History and New Media
  * @license http://www.gnu.org/licenses/gpl-3.0.txt GNU GPLv3
  */
 
@@ -24,6 +22,7 @@ class PdfTocPlugin extends Omeka_Plugin_AbstractPlugin
         'config_form',
         'config',
         'before_save_file',
+        'toc_for_bookreader',
     );
 
     protected $_pdfMimeTypes = array(
@@ -132,7 +131,6 @@ class PdfTocPlugin extends Omeka_Plugin_AbstractPlugin
                     $toc .= $bm_level."|".$bm_title."|".$bm_page;
                 }
             }
-            
             $file->addTextForElement($element, $toc);
         }
     }
@@ -174,4 +172,86 @@ class PdfTocPlugin extends Omeka_Plugin_AbstractPlugin
     {
         return $this->_pdfMimeTypes;
     }
+	
+    /**
+     * Display viewer.
+     *
+     * @param array $args
+     *   Two specific arguments:
+     *   - (integer) page: set the page to be shown when including the iframe,
+     *   - (boolean) embed_functions: allow user to include an iframe with all
+     *   functions (Zoom, Search...). Can be used to include a better viewer
+     *   into items/views.php without requiring user to use the full viewer.
+     *
+     * @return void
+     */
+    public function hookTocForBookreader($args)
+    {
+			$view = $args['view'];
+	        $item = isset($args['item']) && !empty($args['item'])
+	            ? $args['item']
+	            : $view->item;
+			$files = $item->getFiles();
+			
+			foreach ($files as $file) {
+				if (in_array($file->mime_type, $this->_pdfMimeTypes)) {
+					$textElement = $file->getElementTexts(
+	                    self::ELEMENT_SET_NAME,
+	                    self::ELEMENT_NAME
+	                );
+  				$toc = $textElement[0];
+				if (preg_match("/InfoValue/", $toc))
+				  {
+				    return;
+				  }
+				$sortie = "";
+				$toc = rtrim($toc);
+				$tab_toc = preg_split("/\n/", $toc);
+				$niveau_pdt = "";
+				$total = (count($tab_toc)-1);
+				for ($i = 0; $i <= $total; $i++)
+			  	{
+				
+			    $tab_ligne = preg_split("/\|/", $tab_toc[$i]);
+			
+				$niveau = $tab_ligne[0];
+			    $titre  = $tab_ligne[1];
+			    $page   = $tab_ligne[2];
+			    if ($niveau_pdt == "")
+			    {
+			      // Première ligne
+			      $sortie .= "<ul>";
+			    }
+			    elseif ($niveau_pdt < $niveau)
+			    {
+			      for ($k = $niveau_pdt; $k < $niveau; $k++)
+			      {
+			        $sortie .= "<ul>\n";
+			      }
+			    }
+			    elseif ($niveau_pdt > $niveau)
+			    {
+			      for ($k = $niveau_pdt; $k > $niveau; $k--)
+			      {
+			        $sortie .= "</ul>\n";
+			      }
+			    }
+
+			    if ($page)
+			    {
+			      $sortie .= "<li><a onclick='javascript:goToPage(".($page - 1).")' href='?page=".($page - 1)."#lire-doc'>".$titre."</a></li>\n";      
+			    }
+			    $niveau_pdt = $niveau;
+			  }
+
+			  $brToc = $sortie ;
+
+			  include_once 'views' . DIRECTORY_SEPARATOR . 'public'. DIRECTORY_SEPARATOR . 'bookreader_toc.php';
+					
+				}	
+			}
+  
+//end function
+ }	
+    
 }

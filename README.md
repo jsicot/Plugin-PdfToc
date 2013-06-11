@@ -5,7 +5,11 @@ PDF TOC (plugin for Omeka)
 Summary
 -----------
 
-Omeka plugin to extract TOC from PDF files, and show it on public page.
+Omeka plugin to extract TOC from PDF files, and show it with Bookreader viewer plugin.
+
+See demo of the in [Bibliothèque numérique de l'université Rennes 2 (France)](http://bibnum.univ-rennes2.fr/items/show/572).
+
+You can also display toc on item show.
 
 See demo of the in [1886, digital library of university Bordeaux 3 (France)](http://1886.u-bordeaux3.fr/items/show/3953).
 
@@ -45,8 +49,6 @@ Optional plugins
 ----------------
 
 - [BookReader](https://github.com/jsicot/BookReader) : This plugin adds Internet Archive BookReader into Omeka.
-
-See demo of the in [Bibliothèque numérique de l'université Rennes 2 (France)](http://bibnum.univ-rennes2.fr/items/show/572).
 
 
 
