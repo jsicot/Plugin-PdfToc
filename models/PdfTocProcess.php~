@@ -28,14 +28,14 @@ class PdfTocProcess extends Omeka_Job_AbstractJob
         while ($files = $fileTable->fetchObjects($select->limitPage($pageNumber, 50))) {
             foreach ($files as $file) {
 
-                // Delete any existing PDF toc element table of contents from the file.
+                // Delete any existing PDF text element texts from the file.
                 $textElement = $file->getElement(
                     PdfTocPlugin::ELEMENT_SET_NAME,
                     PdfTocPlugin::ELEMENT_NAME
                 );
                 $file->deleteElementTextsByElementId(array($textElement->id));
 
-                // Extract the PDF toc and add it to the file.
+                // Extract the PDF text and add it to the file.
                 $file->addTextForElement(
                     $textElement,
                     $pdfTocPlugin->pdfToc(FILES_DIR . '/original/' . $file->filename)
