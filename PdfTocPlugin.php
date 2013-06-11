@@ -107,9 +107,23 @@ class PdfTocPlugin extends Omeka_Plugin_AbstractPlugin
         }
         // Add the PDF toc to the file record.
         $element = $file->getElement(self::ELEMENT_SET_NAME, self::ELEMENT_NAME);
-        $dump_data = $this->pdfToc($file->getPath());
+        $toc = $this->pdfToc($file->getPath());
         // pdftoc must return a string to be saved to the element_texts table.
-        if (is_string($dump_data)) {
+         $file->addTextForElement($element, $toc);
+       
+    }
+
+    /**
+     * Extract the table of contents from a PDF file.
+     * 
+     * @param string $path
+     * @return string
+     */
+    public function pdfToc($path)
+    {
+        $path = escapeshellarg($path);
+        $dump_data =  shell_exec("pdftk $path dump_data");
+		if (is_string($dump_data)) {
         
         //preprare ToC
             $dump_data = preg_replace("/^.*(Bookmark.*)$/isU", "$1", $dump_data);
@@ -131,20 +145,8 @@ class PdfTocPlugin extends Omeka_Plugin_AbstractPlugin
                     $toc .= $bm_level."|".$bm_title."|".$bm_page;
                 }
             }
-            $file->addTextForElement($element, $toc);
-        }
-    }
-
-    /**
-     * Extract the table of contents from a PDF file.
-     * 
-     * @param string $path
-     * @return string
-     */
-    public function pdfToc($path)
-    {
-        $path = escapeshellarg($path);
-        return shell_exec("pdftk $path dump_data");
+          return $toc;
+          }
     }
 
     /**
