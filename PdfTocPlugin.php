@@ -239,7 +239,7 @@ class PdfTocPlugin extends Omeka_Plugin_AbstractPlugin
 
 			    if ($page)
 			    {
-			      $sortie .= "<li><a onclick='javascript:goToPage(".($page - 1).")' href='?page=".($page - 1)."#lire-doc'>".$titre."</a></li>\n";      
+			      $sortie .= "<li><a onclick='javascript:br.jumpToIndex(".($page - 1).");return false;' href='".url()."?page=".($page - 1)."#lire-doc'>".$titre."</a></li>\n";      
 			    }
 			    $niveau_pdt = $niveau;
 			  }
