@@ -22,10 +22,8 @@ Installation
 - you can install the plugin via github
 
 ```
-    cd omeka/plugins
-    
+    cd omeka/plugins  
     git clone git@github.com:symac/Plugin-PdfToc.git "PdfToc"
-    
 ```
 
 - Activate it from the admin → Settings → Plugins page
