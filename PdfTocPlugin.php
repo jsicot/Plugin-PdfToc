@@ -4,9 +4,10 @@
  *
  * Adapted from PDF Text plugin by Roy Rosenzweig Center for History and New Media
  * @license http://www.gnu.org/licenses/gpl-3.0.txt GNU GPLv3
- */
-
-/**
+ *
+  * This plugin is to be combined with Internet Archive Bookreader plugin
+ * to allow table of contents browsing within the viewer.
+ *
  * The PDF Text plugin.
  * 
  * @package Omeka\Plugins\PdfToc
@@ -176,7 +177,7 @@ class PdfTocPlugin extends Omeka_Plugin_AbstractPlugin
     }
 	
     /**
-     * Display viewer.
+     * Display Table of Contents for BookReader.
      *
      * @param array $args
      *   Two specific arguments:

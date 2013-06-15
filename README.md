@@ -82,12 +82,3 @@ Contact
 * Syvain Machefert, Université Bordeaux 3 (see [symac](https://github.com/symac))
 
 
-Copyright
----------
-
-The source code of [Internet Archive BookReader] is licensed under AGPL v3, as
-described in the LICENSE file.
-
-* Copyright Internet Archive, 2008-2009
-
-
