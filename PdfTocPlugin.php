@@ -129,9 +129,11 @@ class PdfTocPlugin extends Omeka_Plugin_AbstractPlugin
       
       //preprare ToC
           $dump_data = preg_replace("/^.*(Bookmark.*)$/isU", "$1", $dump_data);
+          $dump_data = preg_replace("/BookmarkBegin\n/isU","", $dump_data);
+          $dump_data = preg_replace("/(^.*)PageMediaBegin.*$/isU", "$1", $dump_data);
           $dump_data_array = preg_split("/\n/", $dump_data);
           $dump_data_array = preg_split("/\n/", $dump_data);
-          
+
           $toc = "";
           for ($i = 0; $i <= sizeof($dump_data_array); $i+=3)
           {
