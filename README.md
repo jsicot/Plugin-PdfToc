@@ -5,7 +5,7 @@ PDF TOC (plugin for Omeka)
 Summary
 -----------
 
-Omeka plugin to extract TOC from PDF files, and show it with Bookreader viewer plugin.
+Omeka plugin to extract TOC from PDF files, and show it with [Bookreader viewer plugin](https://github.com/jsicot/BookReader) or [Universal Viewer plugin](https://github.com/Daniel-KM/Omeka-plugin-UniversalViewer) (in addition with the [TOC for Universal Viewer plugin](https://github.com/JBPressac/TocForUniversalViewer)).
 
 See demo of the in [Bibliothèque numérique de l'université Rennes 2 (France)](http://bibnum.univ-rennes2.fr/items/show/572).
 
@@ -16,7 +16,7 @@ See demo of the in [1886, digital library of university Bordeaux 3 (France)](htt
 
 Installation
 ------------
-- This plugin needs pdftk command-line tool on your server
+- This plugin needs pdftk command-line tool on your server (version 2.0.1 or higher required for PDFToc 1.0.2 and higher)
 
 ```
     sudo apt-get install pdftk
@@ -47,7 +47,7 @@ Optional plugins
 ----------------
 
 - [BookReader](https://github.com/jsicot/BookReader) : This plugin adds Internet Archive BookReader into Omeka.
-
+- [Universal Viewer](https://github.com/Daniel-KM/Omeka-plugin-UniversalViewer) + [TOC for Universal Viewer](https://github.com/JBPressac/TocForUniversalViewer)
 
 
 Troubleshooting
